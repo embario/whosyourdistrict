@@ -4,17 +4,20 @@ html, body {
     margin:0;
     padding:0;
     margin:0;
-    font-family: "Open Sans";
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 #leftPane {
     width:20%;
     margin:0;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
     border:1px solid black;
 }
+
 #mapDiv {
     padding:0;
 }
+
 .nav {
     padding: 5px 10px;
     background: #4479BA;
@@ -32,6 +35,7 @@ html, body {
 }
 
 #header {
+    margin:5px;
     text-align: center;
     height:60px;
     border-bottom: solid 1px #ccc;
