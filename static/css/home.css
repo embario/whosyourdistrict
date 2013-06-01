@@ -10,7 +10,7 @@ html, body {
 #leftPane {
     width:20%;
     margin:0;
-    border:none;
+    border:1px solid black;
 }
 #mapDiv {
     padding:0;
