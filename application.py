@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from constants import *
 app = Flask(__name__)
-app.debug = True
+app.debug = False
 
 @app.route("/")
 def esri():
