@@ -164,12 +164,16 @@
 		        });
 		        data_table.addRows(datalist);
 
+		        //Adjust the height and width based on parent div dimensions.
+		        var chart_height = $("#side_panel").innerHeight()/2;
+		        var chart_width = $("#side_panel").innerWidth() - 50;
+
 		        // Set chart options
 		        var options = {'title': title,
 		        			chartArea:{"left":30},
-		        			height:550,
+		        			height:chart_height,
 		        			pieSliceText:"none",
-		        			width:500,
+		        			width:chart_width,
 		                   	legend: {'position':'left'}};
 
 		        // Instantiate and draw our chart, passing in some options.
@@ -201,11 +205,8 @@ $(document).ready(function(){
 		if (nextToShow.length > 0)
 			nextToShow.show();
 		else
-			$("#chart_container .charts:hidden:last").show();
-
-			
+			$("#chart_container .charts:hidden:last").show();			
 	});
-
 });
 
 
