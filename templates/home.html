@@ -30,7 +30,15 @@
 			        		<tr><td>District:</td><td id="district"></td></tr>
 			        		<tr><td>Total Population: </td><td id="total_pop"></td></tr>
 			        	</table>
-			        	<div id='chartSex'></div>			        	
+		        		<div id ="controls" style="border-top: 1px dotted black; padding-top: 10px; margin-top: 10px; margin-bottom:20px;">
+			        		<a href="#" id="previous" style="padding-left: 10px; float:left;">Previous</a>
+			        		<a href="#" id="next" style="padding-right: 10px; float:right;">Next</a>			        	
+		        		</div>			        	
+			        	<div id="chart_container">
+				        	<div id='chart_sex' class="charts"></div>
+				        	<div id='chart_age' class="charts"></div>
+				        	<div id='chart_race'class="charts"></div>
+			        	</div>
 			        </div>
 		        </div>
 
@@ -52,6 +60,7 @@
 			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }} 
 			var URL_TOTAL_POP = "/data/pop/total";
 			var URL_POP_SEX = "/data/pop/sex";
+			var URL_POP_AGE = "/data/pop/age";
 		</script>
 		<!-- Import our own JS -->
 		<script src="/static/js/home.js"></script>
