@@ -16,5 +16,14 @@ def data_pop_total():
     usc = USCensus_API_CD()
     return jsonify(usc.getPopTotal(state, district))
 
+
+@app.route("/data/pop/sex", methods=['GET'])
+def data_pop_sex():
+    usc = USCensus_API_CD()
+    state = request.args.get('state')
+    district = request.args.get('district')
+    return jsonify(usc.getPopSex(state, district))
+
+
 if __name__ == "__main__":
     app.run()
