@@ -82,7 +82,7 @@
 		    	$("#party").html(info["party"]);
 		    	$("#web_link").html(info["web_link"]);
 		    	$("#state").html(info["state"]);
-		    	$("#district").html(info["district"]);    	
+		    	$("#district").html(info["district"]); 
 
 		    	//AJAX GET: Total Population.
 			  	$.ajax({
@@ -104,19 +104,47 @@
 				    url:URL_POP_SEX,
 				    data: {"district":info["district"], "state":info["state"]},
 				      success: function(data){
-				      	draw_the_chart("chartSex", "Sex of Population", "Sex", "Amount", data);
+				      	draw_the_chart("chart_sex", "Sex of Population", "Sex", "Population", data);
 				      },
 				      error: function(data){
 				        alert("An unexpected error occurred when retrieving data. Please try again."); 
 				      }
 				  });
+
+		    	//AJAX GET: Age Breakdown of Population.
+			  	$.ajax({
+				    type:"GET",
+				    url:URL_POP_AGE,
+				    data: {"district":info["district"], "state":info["state"]},
+				      success: function(data){
+				      	//$("#chart_age").hide();
+				      	draw_the_chart("chart_age", "Age of Population", "Age", "Population", data);
+				      },
+				      error: function(data){
+				        alert("An unexpected error occurred when retrieving data. Please try again."); 
+				      }
+				  });
+
+		    	/** AJAX GET: Age Breakdown of Population.
+			  	$.ajax({
+				    type:"GET",
+				    url:URL_RACE_AGE,
+				    data: {"district":info["district"], "state":info["state"]},
+				      success: function(data){
+				      	$("#chart_race").hide();
+				      	draw_the_chart("chart_race", "Race of Population", "Race", "Population", data);
+				      },
+				      error: function(data){
+				        alert("An unexpected error occurred when retrieving data. Please try again."); 
+				      }
+				  });	**/
 		    });
 
 		    map.addLayer(featureLayer);
 		    window.map = map;		    
 
 		  /** Google Charting API function from: https://google-developers.appspot.com/chart/interactive/docs/quick_start **/
-		  /** The function assumes that the data payload is a list with 2-tuples of (String, Number) **/
+		  /** The function assumes that the data payload is a list with 2-tuples of (String, [Number, String]) **/
 	      function draw_the_chart(html_id, title, xaxis_label, yaxis_label, data) {		
 
 		        // Create the data table.
@@ -127,13 +155,15 @@
 		        //Populate a list containing all key-value pairs.
 		        var datalist = [];
 		        $.each (data, function(key, value){
-		        	datalist.push([key, parseInt(value)]);
+		        	var val = parseInt(value[0])
+		        	var pretty_key = value[1]
+		        	datalist.push([pretty_key, val]);
 		        });
 		        data_table.addRows(datalist);
 
 		        // Set chart options
 		        var options = {'title': title,
-		                   	legend: {'position':'top'}};
+		                   	legend: {'position':'left'}};
 
 		        // Instantiate and draw our chart, passing in some options.
 		        var chart = new google.visualization.PieChart(document.getElementById(html_id));
@@ -141,5 +171,49 @@
 	      	}		    
         });
     });
+
+
+//Some event-handling via JQuery.
+$(document).ready(function(){
+
+	$("#next").click(function(){
+		var visibleChart = $("#chart_container .charts:visible");
+		visibleChart.hide();
+		var nextToShow = $(visibleChart).next(".charts:hidden");
+		if (nextToShow.length > 0)
+			nextToShow.show();
+		else
+			$("#chart_container .charts:hidden:first").show();
+
+	});
+
+	$("#previous").click(function(){
+		var visibleChart = $("#chart_container .charts:visible");
+		visibleChart.hide();
+		var nextToShow = $(visibleChart).prev(".charts:hidden");
+		if (nextToShow.length > 0)
+			nextToShow.show();
+		else
+			$("#chart_container .charts:hidden:last").show();
+
+			
+	});
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //@ sourceURL=home.js
