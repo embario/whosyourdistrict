@@ -91,7 +91,7 @@
 				    data: {"district":info["district"], "state":info["state"]},
 				      success: function(data){
 				      	var totalPop = data ["POP_TOTAL"]
-				      	$("#total_pop").html(totalPop);		
+				      	$("#total_pop").html(totalPop[0]);		
 				      },
 				      error: function(data){
 				        alert("An unexpected error occurred when retrieving data. Please try again."); 
@@ -117,7 +117,7 @@
 				    url:URL_POP_AGE,
 				    data: {"district":info["district"], "state":info["state"]},
 				      success: function(data){
-				      	//$("#chart_age").hide();
+				      	$("#chart_age").hide();
 				      	draw_the_chart("chart_age", "Age of Population", "Age", "Population", data);
 				      },
 				      error: function(data){
@@ -125,7 +125,7 @@
 				      }
 				  });
 
-		    	/** AJAX GET: Age Breakdown of Population.
+		    	AJAX GET: Race Breakdown of Population.
 			  	$.ajax({
 				    type:"GET",
 				    url:URL_RACE_AGE,
@@ -137,7 +137,7 @@
 				      error: function(data){
 				        alert("An unexpected error occurred when retrieving data. Please try again."); 
 				      }
-				  });	**/
+				  });
 		    });
 
 		    map.addLayer(featureLayer);
@@ -163,6 +163,10 @@
 
 		        // Set chart options
 		        var options = {'title': title,
+		        			chartArea:{"left":30},
+		        			height:550,
+		        			pieSliceText:"none",
+		        			width:500,
 		                   	legend: {'position':'left'}};
 
 		        // Instantiate and draw our chart, passing in some options.
