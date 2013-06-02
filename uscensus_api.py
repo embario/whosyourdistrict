@@ -2,7 +2,7 @@ import urllib2
 import json
 import ConfigParser as confp
 
-FILE_CONF = "./application.conf"
+FILE_CONF = "/var/www/whosyourdistrict.org/application.conf"
 
 SECTION_USCENSUSAPI = "USCensusAPI"
 
