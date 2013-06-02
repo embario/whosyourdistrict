@@ -35,7 +35,12 @@
     ) {
         ready(function(){
 
-        	parser.parse();       	
+        	parser.parse();
+
+        	//Make these explicit first.
+        	$("chart_race").show();
+        	$("chart_sex").hide();
+        	$("chart_age").hide();  	
 
             //create the popup so we can specify that the popupWindow option is false. Additional options
             //can be defined for the popup like modifying the highlight symbol, margin etc. 
@@ -80,7 +85,7 @@
 		    	//Update the Representative & Demographic info.
 		    	$("#rep").html(info["rep"]);
 		    	$("#party").html(info["party"]);
-		    	$("#web_link").html(info["web_link"]);
+		    	$("#web_link").html("<a href='" + info["web_link"] + "'>" + info["web_link"] + "</a>");
 		    	$("#state").html(info["state"]);
 		    	$("#district").html(info["district"]); 
 
@@ -91,7 +96,7 @@
 				    data: {"district":info["district"], "state":info["state"]},
 				      success: function(data){
 				      	var totalPop = data ["POP_TOTAL"]
-				      	$("#total_pop").html(totalPop);		
+				      	$("#total_pop").html(totalPop[0]);		
 				      },
 				      error: function(data){
 				        alert("An unexpected error occurred when retrieving data. Please try again."); 
@@ -117,7 +122,6 @@
 				    url:URL_POP_AGE,
 				    data: {"district":info["district"], "state":info["state"]},
 				      success: function(data){
-				      	//$("#chart_age").hide();
 				      	draw_the_chart("chart_age", "Age of Population", "Age", "Population", data);
 				      },
 				      error: function(data){
@@ -125,19 +129,18 @@
 				      }
 				  });
 
-		    	/** AJAX GET: Age Breakdown of Population.
+		    	//AJAX GET: Race Breakdown of Population.
 			  	$.ajax({
 				    type:"GET",
-				    url:URL_RACE_AGE,
+				    url:URL_POP_RACE_ANY,
 				    data: {"district":info["district"], "state":info["state"]},
 				      success: function(data){
-				      	$("#chart_race").hide();
 				      	draw_the_chart("chart_race", "Race of Population", "Race", "Population", data);
 				      },
 				      error: function(data){
 				        alert("An unexpected error occurred when retrieving data. Please try again."); 
 				      }
-				  });	**/
+				  });
 		    });
 
 		    map.addLayer(featureLayer);
@@ -163,6 +166,10 @@
 
 		        // Set chart options
 		        var options = {'title': title,
+		        			chartArea:{"left":30},
+		        			height:550,
+		        			pieSliceText:"none",
+		        			width:500,
 		                   	legend: {'position':'left'}};
 
 		        // Instantiate and draw our chart, passing in some options.

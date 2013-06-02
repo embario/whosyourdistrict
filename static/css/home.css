@@ -22,6 +22,10 @@ html, body {
     padding:0;
 }
 
+.charts {
+    margin: 0 auto;
+}
+
 .nav {
     padding: 5px 10px;
     background: #4479BA;
@@ -43,4 +47,10 @@ html, body {
     text-align: center;
     height:60px;
     border-bottom: solid 1px #ccc;
+}
+
+.refs {
+    font-size:12px;
+    text-align: center;
+
 }
