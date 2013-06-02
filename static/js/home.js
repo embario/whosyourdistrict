@@ -35,7 +35,7 @@
     ) {
         ready(function(){
 
-            parser.parse();
+        	parser.parse();       	
 
             //create the popup so we can specify that the popupWindow option is false. Additional options
             //can be defined for the popup like modifying the highlight symbol, margin etc. 
@@ -46,7 +46,7 @@
 		    var map = new Map("mapDiv", {
 		        basemap:"topo",
 		        center:[-104.9,39.7392], //long, lat
-		        zoom:9,
+		        zoom:7,
 		        infoWindow: popup,
 		        sliderStyle:"small"
 		    });
@@ -62,7 +62,7 @@
 
 		    featureLayer.on("click", function(event){
 		    	var info = {};
-		    	info ["area code"] = event.graphic.attributes ["Area"];
+		    	//info ["area_code"] = event.graphic.attributes ["Area"];
 		    	info ["district"] = event.graphic.attributes["DISTRICT"];
 		    	info ["district_id"] = event.graphic.attributes ["DistrictID"];
 		    	info ["rep"] = event.graphic.attributes["REPRESENTA"];
@@ -79,11 +79,11 @@
 		    	//Perform the AJAX GET Request.
 			  	$.ajax({
 				    type:"GET",
-				    url:URL_TOTAL_POP,
+				    url:URL_POP_SEX,
 				    data: {"district":info["district"], "state":info["state"]},
 				      success: function(data){
 				      	//Update Side Panel with new info.
-				      	updatePanel(info);
+				      	updatePanel(data, info);
 				      },
 				      error: function(data){
 				        alert("An unexpected error occurred when retrieving data. Please try again."); 
@@ -94,16 +94,45 @@
 		    map.addLayer(featureLayer);
 		    window.map = map;		    
 
-		    function updatePanel(info){
-
-		    	label_areacode = "Area Code:";
-		    	label_district = "District:";
-
-		    	$('#infolist > tbody:last').append("<tr><td>" + label_areacode + "</td><td>" + 
-		    		info["area_code"] + "</td></tr>");
-		    	$('#infolist > tbody:last').append("<tr><td>" + label_district + "</td><td>" + 
-		    		info["district"] + "</td></tr>");		    	
+		    function updatePanel(data, info){
+		    	$(".rep").html(info["rep"]);
+		    	$(".party").html(info["party"]);
+		    	$(".web_link").html(info["web_link"]);
+		    	$(".state").html(info["state"]);
+		    	$(".district").html(info["district"]);
+		    	
+		    	draw_the_chart("chartSex", "Sex of Population", "Sex", "Amount", data);
 		    }
+
+
+		  /** Google Charting API function from: https://google-developers.appspot.com/chart/interactive/docs/quick_start **/
+		  /** The function assumes that the data payload is a list with 2-tuples of (String, Number) **/
+	      function draw_the_chart(html_id, title, xaxis_label, yaxis_label, data) {		
+
+		        // Create the data table.
+		        var data_table = new google.visualization.DataTable();
+		        data_table.addColumn('string', xaxis_label);
+		        data_table.addColumn('number', yaxis_label);
+
+		        //Populate a list containing all key-value pairs.
+		        var datalist = [];
+		        $.each (data, function(key, value){
+		        	datalist.push([key, parseInt(value)]);
+		        });
+		        data_table.addRows(datalist);
+
+		        // Set chart options
+		        var options = {'title': title,
+		        			'width':400,
+		                   	'height':300, 
+		                   	legend: { 'position':'top'}
+		                   };
+
+		        // Instantiate and draw our chart, passing in some options.
+		        var chart = new google.visualization.PieChart(document.getElementById(html_id));
+		        chart.draw(data_table, options);
+
+	      	}		    
 
             function initializeSidebar(map){
                 var popup = map.infoWindow;

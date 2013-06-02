@@ -11,20 +11,25 @@
 
 	<body class="claro">
 		<div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%;">
-		    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false" region="left" style="width: 20%;height:100%;">
+		    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false" region="left" style="width: 30%;height:100%;">
 
 		    	<!-- Sidebar Panel -->
 		        <div id="leftPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
 			        <div id="header" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
-			            <div id="featureCount" style="margin-bottom:5px;">Click to select feature(s)</div>
+			            <div id="featureCount" style="margin-bottom:5px;">Demographic Information</div>
 			        </div>		        	
 
 			        <!-- Data goes in the info container -->
 			        <div id="info_container">
 			        	<table id ="infolist">
-			        		<th style="text-align:center;"> Demographic Information </th>
-			        		<tbody></tbody>
+			        		<tbody style="margin:2px;"></tbody>
+			        		<tr><td>Representative:</td><td class="rep"></td></tr>
+			        		<tr><td>Party:</td><td class="party"></td></tr>
+			        		<tr><td>Web Link:</td><td class="web_link"></td></tr>
+			        		<tr><td>State:</td><td class="state"></td></tr>
+			        		<tr><td>District:</td><td class="district"></td></tr>
 			        	</table>
+			        	<div id='chartSex' style='margin: 0 auto;'></div>			        	
 			        </div>
 		        </div>
 
@@ -32,15 +37,21 @@
 		    <div id="mapDiv" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
 		</div>
 
-
+		<!-- Import Google Charting API -->
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script> 
-			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }} 
-			var URL_TOTAL_POP = "/data/pop/total";
+            // Load the Visualization API and the piechart package.
+        	google.load('visualization', '1.0', {'packages':['corechart']});		
 		</script>
 		<!-- Scripts go in the bottom for after-the-fact page loading. -->
 		<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/"></script>
 		<!-- Import JQuery -->
 		<script src="/static/js/jquery2.02.js"></script>
+		<script> 
+			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }} 
+			var URL_TOTAL_POP = "/data/pop/total";
+			var URL_POP_SEX = "/data/pop/sex";
+		</script>
 		<!-- Import our own JS -->
 		<script src="/static/js/home.js"></script>
 	
