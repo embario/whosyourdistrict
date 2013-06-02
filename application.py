@@ -7,7 +7,7 @@ app.debug = True
 
 @app.route("/")
 def esri():
-    return render_template(HOME)
+    return render_template(HTML_HOME)
 
 
 @app.route("/data/pop/total", methods=['GET'])
