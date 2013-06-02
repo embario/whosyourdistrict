@@ -57,6 +57,27 @@ API_VAR_POP_AGE_85OVER            = "DP05_0016E"
 OUT_KEY_POP_AGE_85OVER            = "POP_AGE_85OVER"
 OUT_STR_POP_AGE_85OVER            = "85 and Over"
 
+OUT_KEY_POP_AGE_DEC_4UNDER        = "POP_AGE_4UNDER"
+OUT_STR_POP_AGE_DEC_4UNDER        = "4 and Under"
+OUT_KEY_POP_AGE_DEC_05TO14        = "POP_AGE_05TO14"
+OUT_STR_POP_AGE_DEC_05TO14        = "5 to 14"
+OUT_KEY_POP_AGE_DEC_15TO24        = "POP_AGE_15TO24"
+OUT_STR_POP_AGE_DEC_15TO24        = "15 to 24"
+OUT_KEY_POP_AGE_DEC_25TO34        = "POP_AGE_25TO35"
+OUT_STR_POP_AGE_DEC_25TO34        = "25 to 34"
+OUT_KEY_POP_AGE_DEC_35TO44        = "POP_AGE_35TO44"
+OUT_STR_POP_AGE_DEC_35TO44        = "35 to 44"
+OUT_KEY_POP_AGE_DEC_45TO54        = "POP_AGE_45TO54"
+OUT_STR_POP_AGE_DEC_45TO54        = "45 to 54"
+OUT_KEY_POP_AGE_DEC_55TO64        = "POP_AGE_55TO64"
+OUT_STR_POP_AGE_DEC_55TO64        = "55 to 64"
+OUT_KEY_POP_AGE_DEC_65TO74        = "POP_AGE_65TO74"
+OUT_STR_POP_AGE_DEC_65TO74        = "65 to 74"
+OUT_KEY_POP_AGE_DEC_75TO84        = "POP_AGE_75TO84"
+OUT_STR_POP_AGE_DEC_75TO84        = "75 to 84"
+OUT_KEY_POP_AGE_DEC_85OVER        = "POP_AGE_85OVER"
+OUT_STR_POP_AGE_DEC_85OVER        = "85 and Over"
+
 API_VAR_POP_RACE_ANY_WHITE        = "DP05_0059E"
 OUT_KEY_POP_RACE_ANY_WHITE        = "POP_RACE_ANY_WHITE"
 OUT_STR_POP_RACE_ANY_WHITE        = "White"
@@ -132,6 +153,32 @@ class USCensus_API_CD():
         data[OUT_KEY_POP_AGE_85OVER] = (self.getFirstDataPoint(API_VAR_POP_AGE_85OVER, STATE_CODES[state], district), OUT_STR_POP_AGE_85OVER)
         return data
 
+    def getPopAgeDec(self, state, district):
+        data = {}
+        data[OUT_KEY_POP_AGE_DEC_4UNDER] = ((self.getFirstDataPoint(API_VAR_POP_AGE_UNDER5, STATE_CODES[state], district)),
+                                            OUT_STR_POP_AGE_DEC_4UNDER)
+        data[OUT_KEY_POP_AGE_DEC_05TO14] = ((self.getFirstDataPoint(API_VAR_POP_AGE_05TO09, STATE_CODES[state], district) + 
+                                             self.getFirstDataPoint(API_VAR_POP_AGE_10TO14, STATE_CODES[state], district)),
+                                            OUT_STR_POP_AGE_DEC_05TO14)
+        data[OUT_KEY_POP_AGE_DEC_15TO24] = ((self.getFirstDataPoint(API_VAR_POP_AGE_15TO19, STATE_CODES[state], district) +
+                                             self.getFirstDataPoint(API_VAR_POP_AGE_20TO24, STATE_CODES[state], district)),
+                                            OUT_STR_POP_AGE_DEC_15TO24)
+        data[OUT_KEY_POP_AGE_DEC_25TO34] = ((self.getFirstDataPoint(API_VAR_POP_AGE_25TO34, STATE_CODES[state], district) +
+                                             self.getFirstDataPoint(API_VAR_POP_AGE_35TO44, STATE_CODES[state], district)), 
+                                            OUT_STR_POP_AGE_DEC_25TO34)
+        data[OUT_KEY_POP_AGE_DEC_45TO54] = ((self.getFirstDataPoint(API_VAR_POP_AGE_45TO54, STATE_CODES[state], district)),
+                                            OUT_STR_POP_AGE_DEC_45TO54)
+        data[OUT_KEY_POP_AGE_DEC_55TO64] = ((self.getFirstDataPoint(API_VAR_POP_AGE_55TO59, STATE_CODES[state], district) +
+                                             self.getFirstDataPoint(API_VAR_POP_AGE_60TO64, STATE_CODES[state], district)),
+                                            OUT_STR_POP_AGE_DEC_55TO64)
+        data[OUT_KEY_POP_AGE_DEC_65TO74] = ((self.getFirstDataPoint(API_VAR_POP_AGE_65TO74, STATE_CODES[state], district)),
+                                            OUT_STR_POP_AGE_DEC_65TO74)
+        data[OUT_KEY_POP_AGE_DEC_75TO84] = ((self.getFirstDataPoint(API_VAR_POP_AGE_75TO84, STATE_CODES[state], district)),
+                                            OUT_STR_POP_AGE_DEC_75TO84)
+        data[OUT_KEY_POP_AGE_DEC_85OVER] = ((self.getFirstDataPoint(API_VAR_POP_AGE_85OVER, STATE_CODES[state], district)),
+                                            OUT_STR_POP_AGE_DEC_85OVER)
+        return data
+
     def getPopRaceAny(self, state, district):
         data = {}
         data[OUT_KEY_POP_RACE_ANY_WHITE] = (self.getFirstDataPoint(API_VAR_POP_RACE_ANY_WHITE, STATE_CODES[state], district), OUT_STR_POP_RACE_ANY_WHITE)
@@ -147,4 +194,5 @@ if __name__ == "__main__":
     print(usc.getPopTotal("CO", "01"))
     print(usc.getPopSex("CO", "01"))
     print(usc.getPopAge("CO", "01"))
+    print(usc.getPopAgeDec("CO", "01"))
     print(usc.getPopRaceAny("CO", "01"))
