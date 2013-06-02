@@ -57,6 +57,25 @@ API_VAR_POP_AGE_85OVER            = "DP05_0016E"
 OUT_KEY_POP_AGE_85OVER            = "POP_AGE_85OVER"
 OUT_STR_POP_AGE_85OVER            = "85 and Over"
 
+API_VAR_POP_RACE_ANY_WHITE        = "DP05_0059E"
+OUT_KEY_POP_RACE_ANY_WHITE        = "POP_RACE_ANY_WHITE"
+OUT_STR_POP_RACE_ANY_WHITE        = "White"
+API_VAR_POP_RACE_ANY_BLACK        = "DP05_0060E"
+OUT_KEY_POP_RACE_ANY_BLACK        = "POP_RACE_ANY_BLACK"
+OUT_STR_POP_RACE_ANY_BLACK        = "Black"
+API_VAR_POP_RACE_ANY_NATAM        = "DP05_0061E"
+OUT_KEY_POP_RACE_ANY_NATAM        = "POP_RACE_ANY_NATAM"
+OUT_STR_POP_RACE_ANY_NATAM        = "Native American"
+API_VAR_POP_RACE_ANY_ASIAN        = "DP05_0062E"
+OUT_KEY_POP_RACE_ANY_ASIAN        = "POP_RACE_ANY_ASIAN"
+OUT_STR_POP_RACE_ANY_ASIAN        = "Asian"
+API_VAR_POP_RACE_ANY_PACIS        = "DP05_0063E"
+OUT_KEY_POP_RACE_ANY_PACIS        = "POP_RACE_ANY_PACIS"
+OUT_STR_POP_RACE_ANY_PACIS        = "Pacific Islander"
+API_VAR_POP_RACE_ANY_OTHER        = "DP05_0064E"
+OUT_KEY_POP_RACE_ANY_OTHER        = "POP_RACE_ANY_Other"
+OUT_STR_POP_RACE_ANY_OTHER        = "Other"
+
 API_DATA_INDEX_INNER = 1
 API_DATA_INDEX_OUTER = 0
 
@@ -113,9 +132,19 @@ class USCensus_API_CD():
         data[OUT_KEY_POP_AGE_85OVER] = (self.getFirstDataPoint(API_VAR_POP_AGE_85OVER, STATE_CODES[state], district), OUT_STR_POP_AGE_85OVER)
         return data
 
+    def getPopRaceAny(self, state, district):
+        data = {}
+        data[OUT_KEY_POP_RACE_ANY_WHITE] = (self.getFirstDataPoint(API_VAR_POP_RACE_ANY_WHITE, STATE_CODES[state], district), OUT_STR_POP_RACE_ANY_WHITE)
+        data[OUT_KEY_POP_RACE_ANY_BLACK] = (self.getFirstDataPoint(API_VAR_POP_RACE_ANY_BLACK, STATE_CODES[state], district), OUT_STR_POP_RACE_ANY_BLACK)
+        data[OUT_KEY_POP_RACE_ANY_NATAM] = (self.getFirstDataPoint(API_VAR_POP_RACE_ANY_NATAM, STATE_CODES[state], district), OUT_STR_POP_RACE_ANY_NATAM)
+        data[OUT_KEY_POP_RACE_ANY_PACIS] = (self.getFirstDataPoint(API_VAR_POP_RACE_ANY_PACIS, STATE_CODES[state], district), OUT_STR_POP_RACE_ANY_PACIS)
+        data[OUT_KEY_POP_RACE_ANY_OTHER] = (self.getFirstDataPoint(API_VAR_POP_RACE_ANY_OTHER, STATE_CODES[state], district), OUT_STR_POP_RACE_ANY_OTHER)
+        return data
+
 if __name__ == "__main__":
 
     usc = USCensus_API_CD()
     print(usc.getPopTotal("CO", "01"))
     print(usc.getPopSex("CO", "01"))
     print(usc.getPopAge("CO", "01"))
+    print(usc.getPopRaceAny("CO", "01"))
