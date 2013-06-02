@@ -27,5 +27,12 @@ def data_pop_sex():
     district = request.args.get('district')
     return jsonify(usc.getPopSex(state, district))
 
+@app.route("/data/pop/age", methods=['GET'])
+def data_pop_age():
+    usc = g.usc
+    state = request.args.get('state')
+    district = request.args.get('district')
+    return jsonify(usc.getPopAge(state, district))
+
 if __name__ == "__main__":
     app.run()

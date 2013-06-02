@@ -16,20 +16,21 @@
 		    	<!-- Sidebar Panel -->
 		        <div id="leftPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
 			        <div id="header" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
-			            <div id="featureCount" style="margin-bottom:5px;">Demographic Information</div>
+			        	<h2> Who's Your District? </h2>
 			        </div>		        	
 
 			        <!-- Data goes in the info container -->
 			        <div id="info_container">
 			        	<table id ="infolist">
 			        		<tbody style="margin:2px;"></tbody>
-			        		<tr><td>Representative:</td><td class="rep"></td></tr>
-			        		<tr><td>Party:</td><td class="party"></td></tr>
-			        		<tr><td>Web Link:</td><td class="web_link"></td></tr>
-			        		<tr><td>State:</td><td class="state"></td></tr>
-			        		<tr><td>District:</td><td class="district"></td></tr>
+			        		<tr><td>Representative:</td><td id="rep"></td></tr>
+			        		<tr><td>Party:</td><td id="party"></td></tr>
+			        		<tr><td>Web Link:</td><td id="web_link"></td></tr>
+			        		<tr><td>State:</td><td id="state"></td></tr>
+			        		<tr><td>District:</td><td id="district"></td></tr>
+			        		<tr><td>Total Population: </td><td id="total_pop"></td></tr>
 			        	</table>
-			        	<div id='chartSex' style='margin: 0 auto;'></div>			        	
+			        	<div id='chartSex'></div>			        	
 			        </div>
 		        </div>
 
