@@ -35,9 +35,9 @@
     ) {
         ready(function(){
 
+        	parser.parse();
             // Load the Visualization API and the piechart package.
       		google.load('visualization', '1.0', {'packages':['corechart']});
-            parser.parse();
             
             //create the popup so we can specify that the popupWindow option is false. Additional options
             //can be defined for the popup like modifying the highlight symbol, margin etc. 
