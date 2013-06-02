@@ -35,10 +35,8 @@
     ) {
         ready(function(){
 
-        	parser.parse();
-            // Load the Visualization API and the piechart package.
-      		google.load('visualization', '1.0', {'packages':['corechart']});
-            
+        	parser.parse();       	
+
             //create the popup so we can specify that the popupWindow option is false. Additional options
             //can be defined for the popup like modifying the highlight symbol, margin etc. 
             var popup = Popup({
@@ -48,7 +46,7 @@
 		    var map = new Map("mapDiv", {
 		        basemap:"topo",
 		        center:[-104.9,39.7392], //long, lat
-		        zoom:9,
+		        zoom:7,
 		        infoWindow: popup,
 		        sliderStyle:"small"
 		    });
@@ -64,7 +62,7 @@
 
 		    featureLayer.on("click", function(event){
 		    	var info = {};
-		    	info ["area_code"] = event.graphic.attributes ["Area"];
+		    	//info ["area_code"] = event.graphic.attributes ["Area"];
 		    	info ["district"] = event.graphic.attributes["DISTRICT"];
 		    	info ["district_id"] = event.graphic.attributes ["DistrictID"];
 		    	info ["rep"] = event.graphic.attributes["REPRESENTA"];
@@ -97,36 +95,19 @@
 		    window.map = map;		    
 
 		    function updatePanel(data, info){
+		    	$(".rep").html(info["rep"]);
+		    	$(".party").html(info["party"]);
+		    	$(".web_link").html(info["web_link"]);
+		    	$(".state").html(info["state"]);
+		    	$(".district").html(info["district"]);
 		    	
-		    	label_rep = "Representative:";
-		    	label_party = "Political Party:";
-		    	label_state = "State:"
-		    	label_web_link = "Web Link";
-		    	label_district = "District:";
-		    	label_area_code = "Area Code:";
-
-		    	$('#infolist > tbody:last').append("<tr><td>" + label_rep + "</td><td>" + 
-		    		info["rep"] + "</td></tr>");		   
-		    	$('#infolist > tbody:last').append("<tr><td>" + label_party + "</td><td>" + 
-		    		info["area_code"] + "</td></tr>");		    	
-		    	$('#infolist > tbody:last').append("<tr><td>" + label_state + "</td><td>" + 
-		    		info["state"] + "</td></tr>");		    	
-		    	$('#infolist > tbody:last').append("<tr><td>" + label_web_link + "</td><td>" + 
-		    		info["web_link"] + "</td></tr>");		    	
-		    	$('#infolist > tbody:last').append("<tr><td>" + label_district + "</td><td>" + 
-		    		info["district"] + "</td></tr>");		    			    	
-		    	$('#infolist > tbody:last').append("<tr><td>" + label_area_code + "</td><td>" + 
-		    		info["area_code"] + "</td></tr>");
-
-		    	//chartSex HTML element.
-		    	$("#info_container").append("<div id='chartSex' style='margin: 0 auto;'></div>");
-		    	drawChart("chartSex", "Sex of Population", "Sex", "Amount", data)
+		    	draw_the_chart("chartSex", "Sex of Population", "Sex", "Amount", data);
 		    }
 
 
 		  /** Google Charting API function from: https://google-developers.appspot.com/chart/interactive/docs/quick_start **/
 		  /** The function assumes that the data payload is a list with 2-tuples of (String, Number) **/
-	      function drawChart(html_id, title, xaxis_label, yaxis_label, data) {
+	      function draw_the_chart(html_id, title, xaxis_label, yaxis_label, data) {		
 
 		        // Create the data table.
 		        var data_table = new google.visualization.DataTable();
@@ -136,18 +117,21 @@
 		        //Populate a list containing all key-value pairs.
 		        var datalist = [];
 		        $.each (data, function(key, value){
-		        	datalist.append([key,value]);
+		        	datalist.push([key, parseInt(value)]);
 		        });
-		        data_table.addRows(data);
+		        data_table.addRows(datalist);
 
 		        // Set chart options
 		        var options = {'title': title,
-		                       'width':400,
-		                       'height':300};
+		        			'width':400,
+		                   	'height':300, 
+		                   	legend: { 'position':'top'}
+		                   };
 
 		        // Instantiate and draw our chart, passing in some options.
 		        var chart = new google.visualization.PieChart(document.getElementById(html_id));
 		        chart.draw(data_table, options);
+
 	      	}		    
 
             function initializeSidebar(map){
