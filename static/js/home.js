@@ -38,9 +38,9 @@
         	parser.parse();
 
         	//Make these explicit first.
-        	$("chart_race").show();
-        	$("chart_sex").hide();
-        	$("chart_age").hide();  	
+        	$("#chart_race").show();
+        	$("#chart_sex").hide();
+        	$("#chart_age").hide();  	
 
             //create the popup so we can specify that the popupWindow option is false. Additional options
             //can be defined for the popup like modifying the highlight symbol, margin etc. 
@@ -56,7 +56,7 @@
 		        sliderStyle:"small"
 		    });
 
-		   	var url = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/ColoradoCongressionalDistricts/FeatureServer/0";
+		    var url = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/ColoradoCongressionalDistricts/FeatureServer/0";
 		    var template = new InfoTemplate("World Regions", "Region: ${REGION}");
 		    var featureLayer = new esri.layers.FeatureLayer(url, {
 		        id: "world-regions",
@@ -119,7 +119,7 @@
 		    	//AJAX GET: Age Breakdown of Population.
 			  	$.ajax({
 				    type:"GET",
-				    url:URL_POP_AGE,
+				    url:URL_POP_AGE_DEC,
 				    data: {"district":info["district"], "state":info["state"]},
 				      success: function(data){
 				      	draw_the_chart("chart_age", "Age of Population", "Age", "Population", data);
