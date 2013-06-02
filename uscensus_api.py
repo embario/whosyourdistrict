@@ -155,28 +155,50 @@ class USCensus_API_CD():
 
     def getPopAgeDec(self, state, district):
         data = {}
-        data[OUT_KEY_POP_AGE_DEC_4UNDER] = ((self.getFirstDataPoint(API_VAR_POP_AGE_UNDER5, STATE_CODES[state], district)),
+
+        total = (int(self.getFirstDataPoint(API_VAR_POP_AGE_UNDER5, STATE_CODES[state], district)))
+        data[OUT_KEY_POP_AGE_DEC_4UNDER] = (str(total),
                                             OUT_STR_POP_AGE_DEC_4UNDER)
-        data[OUT_KEY_POP_AGE_DEC_05TO14] = ((self.getFirstDataPoint(API_VAR_POP_AGE_05TO09, STATE_CODES[state], district) + 
-                                             self.getFirstDataPoint(API_VAR_POP_AGE_10TO14, STATE_CODES[state], district)),
+
+        total = (int(self.getFirstDataPoint(API_VAR_POP_AGE_05TO09, STATE_CODES[state], district)) + 
+                 int(self.getFirstDataPoint(API_VAR_POP_AGE_10TO14, STATE_CODES[state], district)))
+        data[OUT_KEY_POP_AGE_DEC_05TO14] = (str(total),
                                             OUT_STR_POP_AGE_DEC_05TO14)
-        data[OUT_KEY_POP_AGE_DEC_15TO24] = ((self.getFirstDataPoint(API_VAR_POP_AGE_15TO19, STATE_CODES[state], district) +
-                                             self.getFirstDataPoint(API_VAR_POP_AGE_20TO24, STATE_CODES[state], district)),
+
+        total = (int(self.getFirstDataPoint(API_VAR_POP_AGE_15TO19, STATE_CODES[state], district)) + 
+                 int(self.getFirstDataPoint(API_VAR_POP_AGE_20TO24, STATE_CODES[state], district)))
+        data[OUT_KEY_POP_AGE_DEC_15TO24] = (str(total),
                                             OUT_STR_POP_AGE_DEC_15TO24)
-        data[OUT_KEY_POP_AGE_DEC_25TO34] = ((self.getFirstDataPoint(API_VAR_POP_AGE_25TO34, STATE_CODES[state], district) +
-                                             self.getFirstDataPoint(API_VAR_POP_AGE_35TO44, STATE_CODES[state], district)), 
+
+        total = (int(self.getFirstDataPoint(API_VAR_POP_AGE_25TO34, STATE_CODES[state], district)))
+        data[OUT_KEY_POP_AGE_DEC_25TO34] = (str(total),
                                             OUT_STR_POP_AGE_DEC_25TO34)
-        data[OUT_KEY_POP_AGE_DEC_45TO54] = ((self.getFirstDataPoint(API_VAR_POP_AGE_45TO54, STATE_CODES[state], district)),
+
+        total = (int(self.getFirstDataPoint(API_VAR_POP_AGE_35TO44, STATE_CODES[state], district)))
+        data[OUT_KEY_POP_AGE_DEC_35TO44] = (str(total),
+                                            OUT_STR_POP_AGE_DEC_35TO44)
+
+        total = (int(self.getFirstDataPoint(API_VAR_POP_AGE_45TO54, STATE_CODES[state], district)))
+        data[OUT_KEY_POP_AGE_DEC_45TO54] = (str(total),
                                             OUT_STR_POP_AGE_DEC_45TO54)
-        data[OUT_KEY_POP_AGE_DEC_55TO64] = ((self.getFirstDataPoint(API_VAR_POP_AGE_55TO59, STATE_CODES[state], district) +
-                                             self.getFirstDataPoint(API_VAR_POP_AGE_60TO64, STATE_CODES[state], district)),
+
+        total = (int(self.getFirstDataPoint(API_VAR_POP_AGE_55TO59, STATE_CODES[state], district)) + 
+                 int(self.getFirstDataPoint(API_VAR_POP_AGE_60TO64, STATE_CODES[state], district)))
+        data[OUT_KEY_POP_AGE_DEC_55TO64] = (str(total),
                                             OUT_STR_POP_AGE_DEC_55TO64)
-        data[OUT_KEY_POP_AGE_DEC_65TO74] = ((self.getFirstDataPoint(API_VAR_POP_AGE_65TO74, STATE_CODES[state], district)),
+
+        total = (int(self.getFirstDataPoint(API_VAR_POP_AGE_65TO74, STATE_CODES[state], district)))
+        data[OUT_KEY_POP_AGE_DEC_65TO74] = (str(total),
                                             OUT_STR_POP_AGE_DEC_65TO74)
-        data[OUT_KEY_POP_AGE_DEC_75TO84] = ((self.getFirstDataPoint(API_VAR_POP_AGE_75TO84, STATE_CODES[state], district)),
+
+        total = (int(self.getFirstDataPoint(API_VAR_POP_AGE_75TO84, STATE_CODES[state], district)))
+        data[OUT_KEY_POP_AGE_DEC_75TO84] = (str(total),
                                             OUT_STR_POP_AGE_DEC_75TO84)
-        data[OUT_KEY_POP_AGE_DEC_85OVER] = ((self.getFirstDataPoint(API_VAR_POP_AGE_85OVER, STATE_CODES[state], district)),
+
+        total = (int(self.getFirstDataPoint(API_VAR_POP_AGE_85OVER, STATE_CODES[state], district)))
+        data[OUT_KEY_POP_AGE_DEC_85OVER] = (str(total),
                                             OUT_STR_POP_AGE_DEC_85OVER)
+
         return data
 
     def getPopRaceAny(self, state, district):
