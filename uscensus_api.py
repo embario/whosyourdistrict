@@ -76,7 +76,7 @@ class USCensus_API_CD():
 
     def getPopSex(self, state, district):
         data = {}
-        data[OUT_KEY_POP_SEX_MALE] = self.getFirstDataPoint(API_VAR_POP_SEX_MALE, STATE_CODES[state], district)
+        data[OUT_KEY_POP_SEX_MALE]   = self.getFirstDataPoint(API_VAR_POP_SEX_MALE, STATE_CODES[state], district)
         data[OUT_KEY_POP_SEX_FEMALE] = self.getFirstDataPoint(API_VAR_POP_SEX_FEMALE, STATE_CODES[state], district)
         return data
 
