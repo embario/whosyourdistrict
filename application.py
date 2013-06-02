@@ -39,5 +39,13 @@ def data_pop_age():
     return jsonify(usc.getPopAge(state, district))
 
 
+@app.route("/data/pop/race/any", methods=['GET'])
+def data_pop_race_any():
+    usc = g.usc
+    state = request.args.get('state')
+    district = request.args.get('district')
+    return jsonify(usc.getPopRaceAny(state, district))
+
+
 if __name__ == "__main__":
     app.run()
