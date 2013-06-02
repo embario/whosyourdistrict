@@ -7,12 +7,18 @@ html, body {
     font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
+#side_panel {
+    width: 30%;
+    height: 100%;
+}
+
 #leftPane {
     width:50%;
     margin:0;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     border:1px solid black;
 }
+
 
 #infolist {
     width:100%;
