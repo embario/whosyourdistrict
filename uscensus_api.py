@@ -17,13 +17,6 @@ API_DATA_INDEX_OUTER = 0
 
 STATE_CODES = { "CO":"08" }
 
-
-
-def getConfig(filename):
-    config = confp.ConfigParser()
-    config.read(filename)
-    return config
-
 class USCensus_API_CD():
     def __init__(self):
         config = confp.ConfigParser()
