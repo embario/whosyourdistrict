@@ -5,7 +5,7 @@ app.debug = True
 
 @app.route("/")
 def esri():
-    return render_template(HOME)
+    return render_template(HTML_HOME)
 
 if __name__ == "__main__":
     app.run()

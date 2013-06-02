@@ -56,17 +56,54 @@
 		    var featureLayer = new esri.layers.FeatureLayer(url, {
 		        id: "world-regions",
 		        opacity:0.3,
-		        infoTemplate: template
+		        infoTemplate: template,
+		        outFields: ["*"]
 		    });
 
 		    featureLayer.on("click", function(event){
-		    	debugger;
+		    	var info = {};
+		    	info ["area code"] = event.graphic.attributes ["Area"];
+		    	info ["district"] = event.graphic.attributes["DISTRICT"];
+		    	info ["district_id"] = event.graphic.attributes ["DistrictID"];
+		    	info ["rep"] = event.graphic.attributes["REPRESENTA"];
+		    	info ["party"] = event.graphic.attributes ["Party"];
+		    	info ["web_link"] = event.graphic.attributes ["WEB_LINK"];
+		    	info ["state"] = event.graphic.attributes ["State"];
+
+		    	//Kludgy code here.
+		    	var district = info["district"]
+		    	if (info["district"].length == 1)
+		    		var district = "0" + district
+		    	info["district"] = district
+
+		    	//Perform the AJAX GET Request.
+			  	$.ajax({
+				    type:"GET",
+				    url:URL_TOTAL_POP,
+				    data: {"district":info["district"], "state":info["state"]},
+				      success: function(data){
+				      	//Update Side Panel with new info.
+				      	updatePanel(info);
+				      },
+				      error: function(data){
+				        alert("An unexpected error occurred when retrieving data. Please try again."); 
+				      }
+				  });
 		    });
 
 		    map.addLayer(featureLayer);
 		    window.map = map;		    
 
-		    //initializeSidebar(window.map);
+		    function updatePanel(info){
+
+		    	label_areacode = "Area Code:";
+		    	label_district = "District:";
+
+		    	$('#infolist > tbody:last').append("<tr><td>" + label_areacode + "</td><td>" + 
+		    		info["area_code"] + "</td></tr>");
+		    	$('#infolist > tbody:last').append("<tr><td>" + label_district + "</td><td>" + 
+		    		info["district"] + "</td></tr>");		    	
+		    }
 
             function initializeSidebar(map){
                 var popup = map.infoWindow;
@@ -74,8 +111,8 @@
                 //when the selection changes update the side panel to display the popup info for the 
                 //currently selected feature. 
                 connect.connect(map, "onClick", function(){
+                	alert("HEYYY");
                     //displayPopupContent(popup.getSelectedFeature());
-                    alert("HEYYY");
                 });
 
                 //when the selection is cleared remove the popup content from the side panel. 
@@ -106,36 +143,5 @@
             }
         });
     });
-
-/**
-require([ "dojo/dom-construct",
-    	"esri/map",
-    	"esri/layers/FeatureLayer",
-    	"esri/geometry/Extent",
-    	"esri/InfoTemplate",
-    	"dojo/domReady!"], 
-    	
-	function(domConstruct, Map, FeatureLayer, Extent, InfoTemplate) {
-
-	    var map = new Map("mapDiv", {
-	        basemap:"topo",
-	        center:[-104.9,39.7392], //long, lat
-	        zoom:9,
-	        sliderStyle:"small"
-	    });
-
-	    var url = "http://maps1.arcgisonline.com/ArcGIS/rest/services/USA_Congressional_Districts/MapServer/2";
-	    var template = new InfoTemplate("World Regions", "Region: ${REGION}");
-	    var fl = new FeatureLayer(url, {
-	        id: "world-regions",
-	        opacity:0.5,
-	        infoTemplate: template
-	    });
-
-	    map.addLayer(fl);
-	}
-);
-
-**/
 
 //@ sourceURL=home.js
