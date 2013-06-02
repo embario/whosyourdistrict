@@ -38,9 +38,9 @@
         	parser.parse();
 
         	//Make these explicit first.
-        	$("chart_race").show();
-        	$("chart_sex").hide();
-        	$("chart_age").hide();  	
+        	$("#chart_race").show();
+        	$("#chart_sex").hide();
+        	$("#chart_age").hide();  	
 
             //create the popup so we can specify that the popupWindow option is false. Additional options
             //can be defined for the popup like modifying the highlight symbol, margin etc. 
