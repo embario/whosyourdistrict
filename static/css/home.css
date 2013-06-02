@@ -48,3 +48,9 @@ html, body {
     height:60px;
     border-bottom: solid 1px #ccc;
 }
+
+.refs {
+    font-size:12px;
+    text-align: center;
+
+}

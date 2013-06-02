@@ -30,6 +30,8 @@
 			        		<tr><td>District:</td><td id="district"></td></tr>
 			        		<tr><td>Total Population: </td><td id="total_pop"></td></tr>
 			        	</table>
+
+			        	<p class="refs"><em>Data from <a href="http://www.census.gov/acs/www/data_documentation/documentation_main/">US Census Bureau ACS 2011 113th CD Dataset </a> and <a href="http://esriurl.com/hack4co">Esri 113th CD API</a></em></p>
 		        		<div id ="controls" style="border-top: 1px dotted black; padding-top: 10px; margin-top: 10px; margin-bottom:20px;">
 			        		<a href="#" id="previous" style="padding-left: 10px; float:left;">Previous</a>
 			        		<a href="#" id="next" style="padding-right: 10px; float:right;">Next</a>			        	
@@ -61,6 +63,7 @@
 			var URL_TOTAL_POP = "/data/pop/total";
 			var URL_POP_SEX = "/data/pop/sex";
 			var URL_POP_AGE = "/data/pop/age";
+			var URL_POP_RACE_ANY = "/data/pop/race/any";
 		</script>
 		<!-- Import our own JS -->
 		<script src="/static/js/home.js"></script>
