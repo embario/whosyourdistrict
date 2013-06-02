@@ -8,7 +8,7 @@ html, body {
 }
 
 #leftPane {
-    width:20%;
+    width:50%;
     margin:0;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     border:1px solid black;
