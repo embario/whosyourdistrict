@@ -23,7 +23,7 @@
 			        <div id="info_container">
 			        	<table id ="infolist">
 			        		<th style="text-align:center;"> Demographic Information </th>
-			        		<tbody></tbody>
+			        		<tbody style="margin:2px;"></tbody>
 			        	</table>
 			        </div>
 		        </div>
@@ -36,9 +36,12 @@
 		<script> 
 			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }} 
 			var URL_TOTAL_POP = "/data/pop/total";
+			var URL_POP_SEX = "/data/pop/sex";
 		</script>
 		<!-- Scripts go in the bottom for after-the-fact page loading. -->
 		<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/"></script>
+		<!-- Import Google Charting API -->
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<!-- Import JQuery -->
 		<script src="/static/js/jquery2.02.js"></script>
 		<!-- Import our own JS -->
