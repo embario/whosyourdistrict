@@ -60,6 +60,7 @@
 		        outFields: ["*"]
 		    });
 
+		    //When a CLICK occurs on the map...
 		    featureLayer.on("click", function(event){
 		    	var info = {};
 		    	//info ["area_code"] = event.graphic.attributes ["Area"];
@@ -76,14 +77,34 @@
 		    		var district = "0" + district
 		    	info["district"] = district
 
-		    	//Perform the AJAX GET Request.
+		    	//Update the Representative & Demographic info.
+		    	$("#rep").html(info["rep"]);
+		    	$("#party").html(info["party"]);
+		    	$("#web_link").html(info["web_link"]);
+		    	$("#state").html(info["state"]);
+		    	$("#district").html(info["district"]);    	
+
+		    	//AJAX GET: Total Population.
+			  	$.ajax({
+				    type:"GET",
+				    url:URL_TOTAL_POP,
+				    data: {"district":info["district"], "state":info["state"]},
+				      success: function(data){
+				      	var totalPop = data ["POP_TOTAL"]
+				      	$("#total_pop").html(totalPop);		
+				      },
+				      error: function(data){
+				        alert("An unexpected error occurred when retrieving data. Please try again."); 
+				      }
+				  });
+
+		    	//AJAX GET: Sex Breakdown of Population.
 			  	$.ajax({
 				    type:"GET",
 				    url:URL_POP_SEX,
 				    data: {"district":info["district"], "state":info["state"]},
 				      success: function(data){
-				      	//Update Side Panel with new info.
-				      	updatePanel(data, info);
+				      	draw_the_chart("chartSex", "Sex of Population", "Sex", "Amount", data);
 				      },
 				      error: function(data){
 				        alert("An unexpected error occurred when retrieving data. Please try again."); 
@@ -93,17 +114,6 @@
 
 		    map.addLayer(featureLayer);
 		    window.map = map;		    
-
-		    function updatePanel(data, info){
-		    	$(".rep").html(info["rep"]);
-		    	$(".party").html(info["party"]);
-		    	$(".web_link").html(info["web_link"]);
-		    	$(".state").html(info["state"]);
-		    	$(".district").html(info["district"]);
-		    	
-		    	draw_the_chart("chartSex", "Sex of Population", "Sex", "Amount", data);
-		    }
-
 
 		  /** Google Charting API function from: https://google-developers.appspot.com/chart/interactive/docs/quick_start **/
 		  /** The function assumes that the data payload is a list with 2-tuples of (String, Number) **/
@@ -123,53 +133,12 @@
 
 		        // Set chart options
 		        var options = {'title': title,
-		        			'width':400,
-		                   	'height':300, 
-		                   	legend: { 'position':'top'}
-		                   };
+		                   	legend: {'position':'top'}};
 
 		        // Instantiate and draw our chart, passing in some options.
 		        var chart = new google.visualization.PieChart(document.getElementById(html_id));
 		        chart.draw(data_table, options);
-
 	      	}		    
-
-            function initializeSidebar(map){
-                var popup = map.infoWindow;
-
-                //when the selection changes update the side panel to display the popup info for the 
-                //currently selected feature. 
-                connect.connect(map, "onClick", function(){
-                	alert("HEYYY");
-                    //displayPopupContent(popup.getSelectedFeature());
-                });
-
-                //when the selection is cleared remove the popup content from the side panel. 
-                connect.connect(popup, "onClearFeatures", function(){
-                    //dom.byId replaces dojo.byId
-                    dom.byId("featureCount").innerHTML = "Congressional District";
-                    //registry.byId replaces dijit.byId
-                    registry.byId("leftPane").set("content", "");
-                    domUtils.hide(dom.byId("pager"));
-                });
-
-                //When features are associated with the  map's info window update the sidebar with the new content. 
-                connect.connect(popup, "onSetFeatures", function(){
-                    displayPopupContent(popup.getSelectedFeature());
-                    dom.byId("featureCount").innerHTML = popup.features.length + " feature(s) selected";
-
-                    //enable navigation if more than one feature is selected 
-                    popup.features.length > 1 ? domUtils.show(dom.byId("pager")) : domUtils.hide(dom.byId("pager"));
-                });
-            }
-
-            function displayPopupContent(feature){
-                if(feature){
-                	debugger;
-                    var content = feature.getContent();
-                    registry.byId("leftPane").set("content", content);
-                }
-            }
         });
     });
 
