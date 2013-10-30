@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify, request, g
 from constants import *
 from uscensus_api import USCensus_API_CD
 app = Flask(__name__)
-app.debug = True
+app.debug = False
 
 @app.before_request
 def before_request():
