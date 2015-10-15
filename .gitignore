@@ -1,8 +1,2 @@
-# Build Files
-*.pyc
-
-# Temp Files
-*~
-
-# Credentials
-application.conf
+_site
+.sass-cache
